@@ -9,24 +9,24 @@ resource "aws_instance" "lab3-ec2" {
     Name = var.ec2_name
   }
 
-  connection {
-    type     = var.ec2_connection_type 
-    user     = var.ec2_connection_user 
-    private_key = file(var.ec2_connection_private_key) 
-    host     = self.public_ip 
-  }
+#   connection {
+#     type     = var.ec2_connection_type 
+#     user     = var.ec2_connection_user 
+#     private_key = file(var.ec2_connection_private_key) 
+#     host     = self.public_ip 
+#   }
 
-  provisioner "file" {
-    source      = var.ec2_provisioner_file_source 
-    destination = var.ec2_provisioner_file_destination 
-  }
+#   provisioner "file" {
+#     source      = var.ec2_provisioner_file_source 
+#     destination = var.ec2_provisioner_file_destination 
+#   }
 
-  provisioner "remote-exec" {
-    inline = var.ec2_provisioner_inline
-  }
+#   provisioner "remote-exec" {
+#     inline = var.ec2_provisioner_inline
+#   }
 
-  provisioner "local-exec" {
-    command = "echo Public EC2 ip: ${self.public_ip} >> ./public_ip.txt"
-  }
+#   provisioner "local-exec" {
+#     command = "echo Public EC2 ip: ${self.public_ip} >> ./public_ip.txt"
+#   }
 
-}
+ }

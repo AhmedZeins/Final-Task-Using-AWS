@@ -1,0 +1,6 @@
+zein-terraform.pem
+.terraform
+terraform.tfstate.backup
+terraform.tfstate
+.terraform.lock.hcl
+.terraform.tfstate.lock.info

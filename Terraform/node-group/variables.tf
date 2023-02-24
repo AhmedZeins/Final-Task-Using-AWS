@@ -1,15 +1,6 @@
-variable "node_role_arns" {
+# variable "subnet_ids" {
   
-}
-
-variable "cluster_name" {
+# }
+# variable "my_cluster_name" {
   
-}
-
-variable "node_group_name" {
-  
-}
-
-variable "subnet_ids" {
-  
-}
+# }

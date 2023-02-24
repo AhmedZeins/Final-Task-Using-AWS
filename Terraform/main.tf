@@ -92,24 +92,22 @@ module "ec2_public" {
   ec2_ami_id = "ami-06878d265978313ca"
   ec2_instance_type = "t2.micro"
   ec2_name = "ec2-public"
+  ec2_key_name = "zein-terraform"
   ec2_public_ip = true
   ec2_subnet_ip = module.public_subnet_1st.lab3-subnet_id
   ec2_security_gr = [ module.security_group.securitygroup_id ]
  
 }
 
+module "EKS"{
+    source = "./EKS"
+    # EKS-name = "EKS-cluster"
+    subnet_id = [module.private_subnet_1st.lab3-subnet_id,module.private_subnet_2nd.lab3-subnet_id]
+    node-subnet_ids = [module.private_subnet_1st.lab3-subnet_id,module.private_subnet_2nd.lab3-subnet_id]
 
-module "EKS" {
-  soursource = "./EKS"
-  eks-name = "EKScluster"
-  subnet_id = 
-    
 }
-
-module "node-group" {
-  source = "./node-group"
-  node_role_arns = aws_iam_role.eks_node_group.arn
-  cluster_name = "EKScluster"
-  node_group_name = "eks-node-cluster"
-  subnet_id = 
-}
+# module "EKS-NODE"{
+#     source = "./node-group"
+#     my_cluster_name = module.EKS.cluster-name
+#     subnet_ids = [module.private_subnet_1st.lab3-subnet_id,module.private_subnet_2nd.lab3-subnet_id]
+# }
