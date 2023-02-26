@@ -1,0 +1,43 @@
+- name: Install AWS CLI and kubectl, and copy directory to EC2
+  hosts: ec2_instances
+  become: true
+  become_method: sudo
+  become_user: root
+  gather_facts: yes
+  connection: ssh
+
+  tasks:
+    - name: Update apt package list
+      become: true
+      apt:
+        update_cache: yes
+
+    - name: Install AWS CLI
+      become: true
+      apt:
+        name: awscli
+        state: present
+
+    # - name: Install kubectl
+    #   apt:
+    #     name: kubectl
+    #     state: present
+
+
+    - name: Synchronize directory
+      synchronize:
+        src: ./Jenkins
+        dest: ~/
+      become: true
+      
+    # - name: Apply all YAML files in Jenkins directory
+    #   become: true
+    #   command: kubectl apply -f ~/Jenkins/*.yml
+
+    # - name: Copy directory to EC2
+    #   become: true
+    #   copy:
+    #     src: ./Jenkins
+    #     dest: ~/ubuntu
+    #     mode: "0755"
+    #     remote_src: yes

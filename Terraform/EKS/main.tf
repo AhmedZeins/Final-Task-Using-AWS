@@ -32,6 +32,7 @@ resource "aws_eks_cluster" "EKS" {
     subnet_ids = var.subnet_id
   }
 
+
   # Ensure that IAM Role permissions are created before and deleted after EKS Cluster handling.
   # Otherwise, EKS will not be able to properly delete EKS managed EC2 infrastructure such as Security Groups.
   depends_on = [
@@ -78,6 +79,9 @@ resource "aws_eks_node_group" "private-nodes" {
 
   capacity_type  = "ON_DEMAND"
   instance_types = ["t2.medium"]
+  remote_access {
+    ec2_ssh_key = "zein-terraform"
+  }
 
   scaling_config {
     desired_size = 1
