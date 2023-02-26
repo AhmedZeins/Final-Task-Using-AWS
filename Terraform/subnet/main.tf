@@ -6,5 +6,7 @@ resource "aws_subnet" "lab3-subnet" {
     
     tags = {
         Name = var.subnet_name
+        "kubernetes.io/cluster/EKS-Cluster" = "shared"
+        "kubernetes.io/role/elb"    = 1
     }
 }

@@ -3,9 +3,12 @@ kind: Service
 metadata:
   name: jenkins-service
   namespace: jenkins-ns
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: 'true'
 spec:
   selector: 
-    app: jenkins-server
+    app: jenkins
   type: LoadBalancer  
   ports:
     - port: 80

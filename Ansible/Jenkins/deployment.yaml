@@ -3,8 +3,6 @@ kind: Deployment
 metadata:
   name: jenkins
   namespace: jenkins-ns
-  labels:
-    app: jenkins
 spec:
   replicas: 1
   selector:
@@ -17,20 +15,16 @@ spec:
     spec:
       serviceAccountName: jenkins-admin
       containers:
-        - name: jenkins
-          image: docker.io/zeinsss/jenkins-app
-          ports:
-            - name: httpport
-              containerPort: 8080
-          volumeMounts:
-            - name: jenkins-pv
-              mountPath: /var/jenkins_home
-            - name: docker-socket
-              mountPath: /var/run/docker.sock
+      - name: jenkins
+        image: docker.io/osamahassan/nagato
+        ports:
+        - containerPort: 8080
+
+        volumeMounts:
+          - name: var-run
+            mountPath: /var/run
       volumes:
-        - name: jenkins-pv
-          persistentVolumeClaim:
-              claimName: jenkins-pv-claim
-        - name: docker-socket
+        - name: var-run
           hostPath:
-            path: /var/run/docker.sock
+            path: /var/run
+    
